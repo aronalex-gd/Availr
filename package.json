@@ -1,14 +1,31 @@
 {
   "name": "availr",
-  "module": "index.js",
+  "version": "1.0.0",
+  "description": "CLI to manage availability emails",
+  "main": "bin/cli.js",
+  "bin": {
+    "availr": "bin/cli.js"
+  },
+  "scripts": {
+    "start:server": "node server/index.js",
+    "start:cli": "node bin/cli.js",
+    "start": "concurrently \"npm run start:server\" \"npm run start:cli\""
+  },
   "type": "module",
+  "dependencies": {
+    "chalk": "^5.0.0",
+    "concurrently": "^9.1.2",
+    "csv-parser": "^3.0.0",
+    "dotenv": "^16.5.0",
+    "hono": "^3.0.0",
+    "inquirer": "^9.0.0",
+    "nodemailer": "^6.9.0"
+  },
+  "private": true,
   "devDependencies": {
     "@types/bun": "latest"
   },
-  "peerDependencies": {},
-  "dependencies": {
-    "csv-parse": "^5.6.0",
-    "inquirer": "^12.6.3",
-    "nodemailer": "^7.0.3"
+  "peerDependencies": {
+    "typescript": "^5"
   }
 }
