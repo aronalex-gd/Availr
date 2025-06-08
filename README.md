@@ -112,7 +112,7 @@ You'll see an interactive menu:
   Exit
 ```
 
-## 🔄 Workflows & Commands
+## 🔄 Workflows & **Commands**
 
 <table>
   <thead>
@@ -145,6 +145,16 @@ You'll see an interactive menu:
       </td>
     </tr>
     <tr>
+      <td align="center">4️⃣</td>
+      <td align="left"><code>availr → Check Confirmations</code></td>
+      <td align="left">Monitor responses</td>
+      <td align="left">
+        • Response dashboard<br>
+        • Status tracking<br>
+        • Results export
+      </td>
+    </tr>
+    <tr>
       <td align="center">3️⃣</td>
       <td align="left"><code>availr → Start Server</code></td>
       <td align="left">Run web endpoint</td>
@@ -155,13 +165,43 @@ You'll see an interactive menu:
       </td>
     </tr>
     <tr>
-      <td align="center">4️⃣</td>
-      <td align="left"><code>availr → Check Confirmations</code></td>
-      <td align="left">Monitor responses</td>
+      <td align="center">5️⃣</td>
+      <td align="left"><code>availr → Check Health</code></td>
+      <td align="left">System diagnostics</td>
       <td align="left">
-        • Response dashboard<br>
-        • Status tracking<br>
-        • Results export
+        • Environment validation<br>
+        • Network connectivity<br>
+        • Server status checks
+      </td>
+    </tr>
+    <tr>
+      <td align="center">6️⃣</td>
+      <td align="left"><code>availr → Restart CLI</code></td>
+      <td align="left">Reset interface</td>
+      <td align="left">
+        • Clear current session<br>
+        • Reload configuration<br>
+        • Fresh start for workflows
+      </td>
+    </tr>
+    <tr>
+      <td align="center">7️⃣</td>
+      <td align="left"><code>availr → Help</code></td>
+      <td align="left">Get assistance</td>
+      <td align="left">
+        • Command documentation<br>
+        • Troubleshooting tips<br>
+        • Usage examples
+      </td>
+    </tr>
+    <tr>
+      <td align="center">8️⃣</td>
+      <td align="left"><code>availr → Exit</code></td>
+      <td align="left">Close application</td>
+      <td align="left">
+        • Clean shutdown<br>
+        • Save current state<br>
+        • Exit gracefully
       </td>
     </tr>
   </tbody>
