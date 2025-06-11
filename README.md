@@ -44,6 +44,30 @@ AVAILR_PASS=your-app-password
 
 ⚠️ For Gmail, use an App Password.
 
+## 🖥️ Usage (CLI Commands)
+
+Start the CLI:
+
+```bash
+availr
+```
+
+You'll see an interactive menu:
+
+```txt
+📅 Welcome to Availr CLI
+
+? What would you like to do?
+❯ Import CSV
+  Send Emails
+  Check Confirmations
+  Start Server
+  Check Health
+  Restart CLI
+  Help
+  Exit
+```
+
 ## 📊 CSV Format
 
 ### 📝 Structure Requirements
@@ -88,29 +112,6 @@ John Doe,john@example.com,Sales,Evening
 
 > **Pro Tip**: For large lists, consider splitting your CSV into batches of 50-100 contacts for better email deliverability.
 
-## 🖥️ Usage (CLI Commands)
-
-Start the CLI:
-
-```bash
-availr
-```
-
-You'll see an interactive menu:
-
-```txt
-📅 Welcome to Availr CLI
-
-? What would you like to do?
-❯ Import CSV
-  Send Emails
-  Check Confirmations
-  Start Server
-  Check Health
-  Restart CLI
-  Help
-  Exit
-```
 
 ## 🔄 Workflows & **Commands**
 
