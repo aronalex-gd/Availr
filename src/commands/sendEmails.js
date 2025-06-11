@@ -32,7 +32,7 @@ export const sendEmails = async () => {
         from: process.env.AVAILR_EMAIL,
         to: email,
         subject: EMAIL_SUBJECT,
-        html: EMAIL_TEMPLATE(name, `http://localhost:3000/confirm/${email}`),
+        html: EMAIL_TEMPLATE(name, `http://localhost:3000/confirm?name=${name}&email=${email}`),
       });
       console.log(`✉️ Sent to ${email}`);
     }

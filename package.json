@@ -23,7 +23,8 @@
   },
   "private": true,
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "astro": "^5.9.2"
   },
   "peerDependencies": {
     "typescript": "^5"

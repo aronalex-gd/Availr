@@ -4,6 +4,7 @@ import inquirer from "inquirer";
 import chalk from "chalk";
 import { importCSV } from "../src/commands/importCsv.js";
 import { sendEmails } from "../src/commands/sendEmails.js";
+import { sendConfirmations } from "../src/commands/sendConfirmations.js";
 import { checkConfirmations } from "../src/commands/checkConfirmations.js";
 
 import spinner from "./components/spinner.js";
@@ -29,7 +30,10 @@ const processCommandArgs = async () => {
     case "send":
       await sendEmails();
       return true;
-    case "check":
+    case "send confirmation":
+      await sendConfirmations();
+      return true;
+    case "check confirmation":
       await checkConfirmations();
       return true;
     case "server":
@@ -77,8 +81,9 @@ const main = async () => {
           choices: [
             { name: "Import CSV", value: "Import CSV" },
             { name: "Send Emails", value: "Send Emails" },
+            { name: "Send Confirmations", value: "Send Confirmations" },
             { name: "Check Confirmations", value: "Check Confirmations" },
-            {
+            { 
               name: serverRunning
                 ? `Start Server ${chalk.green("(running)")}`
                 : "Start Server",
@@ -111,6 +116,12 @@ const main = async () => {
           await new Promise((resolve) => setTimeout(resolve, 500));
           spinner.stop();
           await sendEmails();
+          break;
+        case "Send Confirmations":
+          spinner.start("Sending confirmations...");
+          await new Promise((resolve) => setTimeout(resolve, 500));
+          spinner.stop();
+          await sendConfirmations();
           break;
         case "Check Confirmations":
           spinner.start("Loading confirmations...");

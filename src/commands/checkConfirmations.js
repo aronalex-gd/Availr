@@ -1,29 +1,22 @@
-import fs from "fs";
-import { CONFIRM_TEMPLATE } from "../constants.js";
-import nodemailer from "nodemailer";
-import dotenv from "dotenv";
-dotenv.config();
-
+import fs from 'fs'
+import chalk from 'chalk'
 
 export const checkConfirmations = async () => {
-  const confirmations = JSON.parse(
-    fs.readFileSync("./confirmations.json", "utf-8")
-  );
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.AVAILR_EMAIL,
-      pass: process.env.AVAILR_PASS,
-    },
-  });
+    const confirmations = JSON.parse(fs.readFileSync('confirmations.json'));
+    const emails = JSON.parse(fs.readFileSync('emails.json'));
 
-  for (const entry of confirmations) {
-    await transporter.sendMail({
-      from: process.env.AVAILR_EMAIL,
-      to: entry.email,
-      subject: "Confirmation Received",
-      html: CONFIRM_TEMPLATE(entry.name, entry.slot),
+
+    //console.log(`Email sent to :\n ${emails}`)
+    // console.log(`Confirmations sent to :\n ${confirmations}`)
+
+    console.log(`\n Emails Sent To:\n`);
+    emails.forEach((user, index) => {
+        console.log(`${index + 1}. ${user.Name || "Unnamed"} `,chalk.green(`<${user.Email}>`));
     });
-    console.log(`✅ Confirmation email sent to ${entry.email}`);
-  }
+
+    console.log(`\n Confirmations Sent To:\n`);
+    confirmations.forEach((user, index) => {
+        console.log(`${index + 1}. ${user.name || "Unnamed"} `,chalk.green(`<${user.email}>`));
+    });
+    
 };
