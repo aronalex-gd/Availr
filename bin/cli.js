@@ -2,10 +2,10 @@
 
 import inquirer from "inquirer";
 import chalk from "chalk";
-import { importCSV } from "../src/commands/importCsv.js";
-import { sendEmails } from "../src/commands/sendEmails.js";
-import { sendConfirmations } from "../src/commands/sendConfirmations.js";
-import { checkData } from "../src/commands/checkData.js";
+import { importCSV } from "../cli/commands/importCsv.js";
+import { sendEmails } from "../cli/commands/sendEmails.js";
+import { sendConfirmations } from "../cli/commands/sendConfirmations.js";
+import { checkData } from "../cli/commands/checkData.js";
 
 import spinner from "./components/spinner.js";
 import log from "./components/logger.js";
@@ -30,11 +30,11 @@ const processCommandArgs = async () => {
     case "send":
       await sendEmails();
       return true;
-    case "send confirmation":
-      await sendConfirmations();
-      return true;
     case "check data":
       await checkData();
+      return true;
+    case "send confirmation":
+      await sendConfirmations();
       return true;
     case "server":
       await runServer();
@@ -81,9 +81,9 @@ const main = async () => {
           choices: [
             { name: "Import CSV", value: "Import CSV" },
             { name: "Send Emails", value: "Send Emails" },
-            { name: "Send Confirmations", value: "Send Confirmations" },
             { name: "Check Data", value: "Check Data" },
-            { 
+            { name: "Send Confirmations", value: "Send Confirmations" },
+            {
               name: serverRunning
                 ? `Start Server ${chalk.green("(running)")}`
                 : "Start Server",
@@ -117,17 +117,17 @@ const main = async () => {
           spinner.stop();
           await sendEmails();
           break;
-        case "Send Confirmations":
-          spinner.start("Sending confirmations...");
-          await new Promise((resolve) => setTimeout(resolve, 500));
-          spinner.stop();
-          await sendConfirmations();
-          break;
         case "Check Data":
           spinner.start("Loading Data...");
           await new Promise((resolve) => setTimeout(resolve, 500));
           spinner.stop();
           await checkData();
+          break;
+        case "Send Confirmations":
+          spinner.start("Sending confirmations...");
+          await new Promise((resolve) => setTimeout(resolve, 500));
+          spinner.stop();
+          await sendConfirmations();
           break;
         case "Start Server":
           await runServer();

@@ -4,7 +4,6 @@ import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 dotenv.config();
 
-
 export const sendConfirmations = async () => {
   const confirmations = JSON.parse(
     fs.readFileSync("./confirmations.json", "utf-8")
