@@ -34,10 +34,10 @@ app.get("/confirm", (c) => {
   `);
 });
 
-app.get("/confirm/:email", (c) => {
-  const email = c.req.param("email");
-  return c.redirect(`/confirm?email=${encodeURIComponent(email)}`);
-});
+// app.get("/confirm/:email", (c) => {
+//   const email = c.req.param("email");
+//   return c.redirect(`/confirm?email=${encodeURIComponent(email)}`);
+// });
 
 app.post("/confirm", async (c) => {
   try {
