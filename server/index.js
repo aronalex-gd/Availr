@@ -7,7 +7,7 @@ const app = new Hono();
 app.use("*", cors());
 
 app.get("/confirm", (c) => {
-  const name = c.req.query("name") || "there";
+  const name = c.req.query("name") || "";
   const email = c.req.query("email") || "";
 
   return c.html(`
@@ -76,7 +76,7 @@ app.post("/confirm", async (c) => {
     }
 
     confirmations.push({
-      name,
+      name: name.toString(),
       email: email.toString(),
       slot: slot.toString(),
       timestamp: new Date().toISOString(),
