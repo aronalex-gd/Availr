@@ -2,6 +2,7 @@
   "name": "server",
   "scripts": {
     "start": "vercel dev",
+    "start:server": "node api/index.js",
     "deploy": "vercel"
   },
   "dependencies": {
