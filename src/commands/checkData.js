@@ -1,13 +1,10 @@
 import fs from 'fs'
 import chalk from 'chalk'
 
-export const checkConfirmations = async () => {
+export const checkData = async () => {
     const confirmations = JSON.parse(fs.readFileSync('confirmations.json'));
     const emails = JSON.parse(fs.readFileSync('emails.json'));
 
-
-    //console.log(`Email sent to :\n ${emails}`)
-    // console.log(`Confirmations sent to :\n ${confirmations}`)
 
     console.log(`\n Emails Sent To:\n`);
     emails.forEach((user, index) => {
