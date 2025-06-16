@@ -3,9 +3,12 @@
 import inquirer from "inquirer";
 import chalk from "chalk";
 import { importCSV } from "../cli/commands/importCsv.js";
+import { previewCSV } from "../cli/commands/previewCSV.js";
 import { sendEmails } from "../cli/commands/sendEmails.js";
+import { scheduleEmail } from '../cli/commands/scheduleEmail.js';
 import { sendConfirmations } from "../cli/commands/sendConfirmations.js";
 import { checkData } from "../cli/commands/checkData.js";
+import { viewStats } from "../cli/commands/viewStats.js";
 
 import spinner from "./components/spinner.js";
 import log from "./components/logger.js";
@@ -27,14 +30,23 @@ const processCommandArgs = async () => {
     case "import":
       await importCSV();
       return true;
+    case "preview":
+      await previewCSV();
+      return true;
     case "send":
       await sendEmails();
+      return true;
+    case "schedule":
+      await scheduleEmail();
       return true;
     case "check data":
       await checkData();
       return true;
     case "send confirmation":
       await sendConfirmations();
+      return true;
+    case "view stats":
+      await viewStats();
       return true;
     case "server":
       await runServer();
@@ -80,9 +92,12 @@ const main = async () => {
           message: "What would you like to do?",
           choices: [
             { name: "Import CSV", value: "Import CSV" },
+            { name: "Preview CSV", value: "Preview CSV" },
             { name: "Send Emails", value: "Send Emails" },
+            { name: "Schedule Emails", value: "Schedule Emails" },
             { name: "Check Data", value: "Check Data" },
             { name: "Send Confirmations", value: "Send Confirmations" },
+            { name: "View Stats", value: "View Stats" },
             {
               name: serverRunning
                 ? `Start Server ${chalk.green("(running)")}`
@@ -117,6 +132,19 @@ const main = async () => {
           spinner.stop();
           await sendEmails();
           break;
+
+        case "Preview CSV":
+          try {
+            await previewCSV("test.csv");  
+          } catch (err) {
+            console.log(chalk.red("❌ Error previewing CSV:"), err.message);
+          }
+          break;
+        
+        case "Schedule Emails":
+          await scheduleEmail();
+          break;
+
         case "Check Data":
           spinner.start("Loading Data...");
           await new Promise((resolve) => setTimeout(resolve, 500));
@@ -129,6 +157,18 @@ const main = async () => {
           spinner.stop();
           await sendConfirmations();
           break;
+        case "View Stats":
+          try {
+           spinner.start("Loading statistics...");
+           await new Promise((r) => setTimeout(r, 500));
+           spinner.stop();
+
+          await viewStats("test.csv");
+        } catch (err) {
+           console.error(chalk.red(`❌ Failed to view stats: ${err.message}`));
+        }
+        break;
+
         case "Start Server":
           await runServer();
           await new Promise((resolve) => setTimeout(resolve, 500));

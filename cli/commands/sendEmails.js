@@ -21,6 +21,7 @@ export const sendEmails = async () => {
         pass: process.env.AVAILR_PASS,
       },
     });
+    const failedEmails = [];
 
     for (const user of emails) {
       const email = user.email || user.Email;
@@ -28,18 +29,33 @@ export const sendEmails = async () => {
 
       if (!email) continue;
 
-      await transporter.sendMail({
-        from: process.env.AVAILR_EMAIL,
-        to: email,
-        subject: EMAIL_SUBJECT,
-        html: EMAIL_TEMPLATE(
-          name,
-          `http://localhost:3000/confirm?name=${encodeURIComponent(
-            name
-          )}&email=${encodeURIComponent(email)}`
-        ),
-      });
-      console.log(`✉️ Sent to ${email}`);
+      try {
+        await transporter.sendMail({
+          from: process.env.AVAILR_EMAIL,
+          to: email,
+          subject: EMAIL_SUBJECT,
+          html: EMAIL_TEMPLATE(
+            name,
+            `http://localhost:3000/confirm?name=${encodeURIComponent(
+              name
+            )}&email=${encodeURIComponent(email)}`
+          ),
+        });
+        console.log(`✉️ Sent to ${email}`);
+      } catch (sendError) {
+        console.error(`❌ Failed to send to ${email}: ${sendError.message}`);
+        failedEmails.push({ ...user, error: sendError.message });
+      }
+    }
+
+    if (failedEmails.length > 0) {
+      fs.writeFileSync(
+        "./failedEmails.json",
+        JSON.stringify(failedEmails, null, 2)
+      );
+      console.log(
+        `⚠️  ${failedEmails.length} failed email(s) saved to failedEmails.json`
+      );
     }
   } catch (error) {
     console.error("Error sending emails:", error.message);
