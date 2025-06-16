@@ -5,7 +5,7 @@ const Navbar = () => {
     <header className="bg-blue-200 shadow-md py-4 px-6 flex items-center justify-between">
       {/* Logo and Icon */}
       <div className="flex items-center space-x-2">
-        <h1 className="text-3xl font-logo text-black drop-shadow-md">Availr</h1>
+        <h1 className="text-3xl font-logo text-black drop-shadow-md font-body">Availr</h1>
         <div className="flex items-center space-x-1">
           <Clock className="w-6 h-6" />
           <Mail className="w-6 h-6" />

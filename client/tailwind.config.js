@@ -7,6 +7,9 @@ export default {
   ],
   theme: {
   	extend: {
+		fontFamily:{
+	body:['"Protest Revolution"']
+		},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
@@ -56,6 +59,8 @@ export default {
   		}
   	}
   },
+  
+ 
   plugins: [require("tailwindcss-animate")],
 }
 

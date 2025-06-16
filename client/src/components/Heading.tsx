@@ -8,7 +8,7 @@ const Heading = () => {
       transition={{ duration: 0.8 }}
       className="text-center py-12"
     >
-      <h1 className="text-4xl font-bold">Availr</h1>
+      <h1 className="text-6xl font-bold font-body">Availr</h1>
       <p className="mt-4 text-lg">
         Perfect CLI tool & minimal web server for availability scheduling
       </p>

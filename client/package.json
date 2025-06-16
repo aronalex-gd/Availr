@@ -7,7 +7,10 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build-css": "tailwindcss build src/index.css -o dist/output.css"
+
+
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",
