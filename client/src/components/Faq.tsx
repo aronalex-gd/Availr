@@ -15,16 +15,34 @@ const FAQ = () => {
       whileInView={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <h2 className="text-2xl font-semibold">Frequently Asked Questions:</h2>
-      {faqs.map((q, i) => (
-        <div
-          key={i}
-          className="flex justify-between items-center bg-white/10 rounded-lg px-6 py-3 cursor-pointer hover:bg-white/20 transition"
-        >
-          <span>{q}</span>
-          <ArrowRight />
-        </div>
-      ))}
+      <h2 className="text-2xl font-semibold mb-6">Frequently Asked Questions:</h2>
+      <div className="space-y-5">
+        {faqs.map((q, i) => (
+          <motion.div
+            key={i}
+            initial={{ scale: 1, boxShadow: "0 0 0 rgba(0,0,0,0)" }}
+            whileHover={{
+              scale: 1.02,
+              boxShadow: "0px 8px 20px rgba(0, 0, 0, 0.4)",
+              transition: { type: "spring", stiffness: 300 },
+            }}
+            className="overflow-hidden bg-white/10 rounded-xl px-6 py-4 backdrop-blur-sm cursor-pointer group transition-all duration-300"
+          >
+            <div className="flex justify-between items-center">
+              <span className="text-base font-medium group-hover:tracking-wide transition-all">
+                {q}
+              </span>
+              <motion.div
+                initial={{ x: 0 }}
+                whileHover={{ x: 6 }}
+                transition={{ type: "tween", ease: "easeOut", duration: 0.3 }}
+              >
+                <ArrowRight className="opacity-80" />
+              </motion.div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
     </motion.section>
   );
 };

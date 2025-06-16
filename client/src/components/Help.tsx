@@ -14,8 +14,8 @@ const Help = ({ title, description }: Props) => {
       viewport={{ once: true }}
       className="mt-10"
     >
-      <h2 className="text-2xl font-semibold mb-4">{title}</h2>
-      <p className="mb-4">{description}</p>
+      <h2 className="text-2xl font-bold mb-4">{title}</h2>
+      <p className="text-xl mb-4">{description}</p>
       <ul className="list-disc list-inside space-y-2 bg-white/10 p-4 rounded-lg">
         <li>✅ No account or login needed for participants</li>
         <li>✅ CLI-first workflow — made for developers and organizers</li>

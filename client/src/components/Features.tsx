@@ -14,8 +14,8 @@ const Features = ({ title, description }: Props) => {
       viewport={{ once: true }}
       className="mt-10"
     >
-      <h2 className="text-2xl font-semibold mb-4">{title}</h2>
-      <p className="mb-4">{description}</p>
+      <h2 className="text-2xl font-bold mb-4">{title}</h2>
+      <p className="text-xl mb-4">{description}</p>
       <ul className="list-disc list-inside space-y-4 bg-white/10 p-4 rounded-lg">
         <li>✅ <b>Email-Based Confirmation Workflow</b> – Send availability invites with ease</li>
         <li>✅ <b>CSV Import</b> – Upload attendee lists instantly</li>

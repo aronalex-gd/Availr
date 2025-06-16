@@ -1,4 +1,4 @@
-import Heading from '../components/heading'
+import Heading from '../components/Heading'
 import ProblemStatement from '../components/ps'
 import Features from '../components/Features'
 import Working from '../components/Working'
@@ -8,13 +8,16 @@ import People from '../components/People'
 import FAQ from '../components/Faq'
 import Prefooter from '../components/Prefooter'
 import Footer from '../components/Footer'
+import Navbar from '../components/Navbar'
 
 
 const LandingPage = () => {
   return (
+    <div className="bg-gradient-to-b from-blue-900 to-black min-h-screen font-sans text-white">
+      <Navbar/>
          <div className="bg-gradient-to-b from-blue-600 to-black text-white min-h-screen font-sans">
       <Heading />
-      <main className="px-4 py-12 max-w-3xl mx-auto">
+      <main className="px-4 py-12 w-full mx-auto">
         <ProblemStatement
                     title="Tired of Chasing Confirmations?"
                     description="Too many emails. Too many delays. One missed reply can throw everything off. Manual
@@ -43,6 +46,7 @@ const LandingPage = () => {
               <Footer/>
 
       </main>
+    </div>
     </div>
   )
 }

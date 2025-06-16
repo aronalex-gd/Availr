@@ -43,13 +43,30 @@ const People = () => {
       <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {main.map((item, i) => (
           <motion.div
-            key={i}
-            className="bg-white/5 p-6 rounded-lg shadow-sm backdrop-blur-md hover:shadow-md transition duration-300"
-            variants={itemVariants}
-          >
-            <p className="italic">“{item.text}”</p>
-            <p className="mt-2 text-right font-semibold">– {item.author}</p>
-          </motion.div>
+  key={i}
+  className="bg-white/5 p-6 rounded-lg shadow-sm backdrop-blur-md transition-transform duration-300 group cursor-pointer"
+  variants={itemVariants}
+  whileHover={{
+    scale: 1.05,
+    rotateX: 5,
+    rotateY: -5,
+    boxShadow: "0 10px 30px rgba(0,0,0,0.4)",
+    backgroundColor: "rgba(255,255,255,0.06)",
+  }}
+  transition={{
+    type: "spring",
+    stiffness: 200,
+    damping: 20,
+  }}
+>
+  <p className="italic text-white/90 group-hover:text-white transition-colors duration-300">
+    “{item.text}”
+  </p>
+  <p className="mt-2 text-right font-semibold text-white/80 group-hover:text-white">
+    – {item.author}
+  </p>
+</motion.div>
+
         ))}
       </div>
     </motion.section>

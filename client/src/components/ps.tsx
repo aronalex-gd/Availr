@@ -13,8 +13,8 @@ const ProblemStatement = ({ title, description }: Props) => {
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
     >
-      <h2 className="text-2xl font-semibold mb-4">{title}</h2>
-      <p className="mb-8 bg-white/10 p-4 rounded-lg">
+      <h2 className="text-2xl font-bold mb-4">{title}</h2>
+      <p className="text-xl mb-8 bg-white/10 p-4 rounded-lg">
         {description}
       </p>
     </motion.section>

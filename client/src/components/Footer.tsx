@@ -1,34 +1,63 @@
 const Footer = () => {
   return (
-    <footer className="text-white px-4 py-8 text-sm">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div>
-          <h3 className="font-bold text-lg mb-2">Availr</h3>
-          <p>Type-safe, modern TypeScript scaffolding for full stack web development</p>
-          <div className="mt-2">
-            <a href="#" className="inline-flex items-center space-x-1">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="github" className="h-4 w-4" />
-              <span>npm</span>
+    <footer className="text-white  px-6 py-10 text-sm bg-white/10 p-4 rounded-lg">
+      <div className="flex flex-row justify-between mx-auto">
+        {/* Column 1: Availr Description */}
+        <div className="flex-1">
+          <h3 className="text-lg font-semibold mb-2">Availr</h3>
+          <p className="mb-3">
+            Type-safe, modern TypeScript scaffolding for full stack web development
+          </p>
+          <div className="flex space-x-4">
+            <a href="#" aria-label="GitHub">
+              <img
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg"
+                alt="GitHub"
+                className="h-5 w-5"
+              />
+            </a>
+            <a href="#" aria-label="NPM">
+              <img
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/npm/npm-original-wordmark.svg"
+                alt="NPM"
+                className="h-5 w-5"
+              />
             </a>
           </div>
         </div>
-        <div>
-          <h3 className="font-bold text-lg mb-2">Resources</h3>
+
+        {/* Column 2: Resources */}
+        <div className="flex flex-col items-center flex-1">
+          <div>
+          <h3 className="text-lg font-semibold mb-2">Resources</h3>
           <ul className="space-y-1">
-            <li><a href="#">GitHub Repository</a></li>
-            <li><a href="#">NPM Package</a></li>
-            <li><a href="#">Demo Application</a></li>
+            <li><a href="#" className="hover:underline">GitHub Repository</a></li>
+            <li><a href="#" className="hover:underline">NPM Package</a></li>
+            <li><a href="#" className="hover:underline">Demo Application</a></li>
           </ul>
+          </div>
         </div>
-        <div>
-          <h3 className="font-bold text-lg mb-2">Contacts</h3>
+
+        {/* Column 3: Contacts */}
+        <div className="flex flex-col items-center flex-1">
+          <div >
+          <h3 className="text-lg font-semibold mb-2">Contacts</h3>
           <p>abc.xyz@gmail.com</p>
           <p>Have questions or feedback?</p>
-          <p>Feel free to reach out on GitHub</p>
+          <p>
+            Feel free to reach out on{" "}
+            <a href="#" className="underline">GitHub</a>
+          </p>
+          </div>
         </div>
       </div>
-      <div className="text-center mt-6 border-t border-white/10 pt-4">
-        © 2025 Availr. All rights reserved. &nbsp; | &nbsp; Built with TypeScript
+
+      {/* Divider and Bottom Note */}
+      <div className="border-t border-white/10 mt-10 pt-4 text-center flex flex-col md:flex-row justify-between items-center text-xs">
+        <p className="mb-2 md:mb-0">
+          © 2025 Availr. All rights reserved.
+        </p>
+        <p>Built with TypeScript</p>
       </div>
     </footer>
   );
