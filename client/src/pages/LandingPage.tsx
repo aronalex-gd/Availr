@@ -1,10 +1,14 @@
-
 import Heading from '../components/heading'
 import ProblemStatement from '../components/ps'
 import Features from '../components/Features'
 import Working from '../components/Working'
 import Help from '../components/Help'
 import Usage from '../components/Usage'
+import People from '../components/People'
+import FAQ from '../components/Faq'
+import Prefooter from '../components/Prefooter'
+import Footer from '../components/Footer'
+
 
 const LandingPage = () => {
   return (
@@ -33,6 +37,11 @@ const LandingPage = () => {
               title="Built for Every Kind of Scheduling"
               description="Where Availr Shines:"
               />
+              <People/>
+              <FAQ/>
+              <Prefooter/>
+              <Footer/>
+
       </main>
     </div>
   )
