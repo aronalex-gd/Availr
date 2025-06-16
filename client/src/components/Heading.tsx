@@ -15,7 +15,7 @@ const Heading = () => {
       <motion.button
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className="mt-6 px-6 py-2 bg-white text-blue-900 font-semibold rounded-full"
+        className="z-10 mt-6 px-6 py-2 bg-white text-blue-900 font-semibold rounded-full"
       >
         Get Started
       </motion.button>
