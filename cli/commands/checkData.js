@@ -13,7 +13,7 @@ export const checkData = async () => {
 
     console.log(`\n Confirmations Received from:\n`);
     confirmations.forEach((user, index) => {
-        console.log(`${index + 1}. ${user.name || "Unnamed"} `,chalk.green(`<${user.email}>`));
+        console.log(`${index + 1}. ${user.name || "Unnamed"} `,chalk.green(`<${user.email}>`),chalk.cyan(`Slot:${user.slot || "No slot assigned"}`));
     });
     
 };
