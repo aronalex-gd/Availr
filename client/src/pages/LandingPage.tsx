@@ -14,7 +14,7 @@ import Navbar from '../components/Navbar'
 const LandingPage = () => {
   return (
 
-    <div className="relative bg-gradient-to-b from-[#003897] to-black min-h-screen font-sans text-white">
+    <div className="relative bg-gradient-to-b from-[#003897] to-black min-h-screen font-sans text-white overflow-x-hidden">
       <div className="absolute size-full z-0 pointer-events-none">
       <div className=" absolute w-[942px] h-[1200px] ">
           <img
