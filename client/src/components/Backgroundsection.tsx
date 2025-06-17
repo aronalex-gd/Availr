@@ -1,58 +1,38 @@
-
-
 const Backgroundsection = () => {
   return (
-    <div className="absolute size-full z-0 pointer-events-none">
-      <div className=" absolute w-[942px] h-[1200px] ">
-          <img
-          src ="/Rectangle.png"
-          className="size-full"/>
-          
-        </div>
-        <div className="bottom-0 absolute w-[942px] h-[1200px] ">
-          <img
-          src ="/Rectangle.png"
-          className="size-full"/>
-          </div>
-         
+    <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+      {/* Main Background Layer */}
+      <div className="absolute w-[80vw] h-[100vh] left-0 top-0 hidden sm:block">
+        <img src="/Rectangle.png" className="w-full h-full object-cover" />
+      </div>
 
-        <div className="-right-96 bottom-0 absolute w-[942px] h-[1200px] ">
-          <img
-          src ="/Rectangle.png"
-          className="size-full"/>
-          </div>
+      {/* Bottom Layer */}
+      <div className="absolute w-[80vw] h-[100vh] left-0 bottom-0 hidden md:block">
+        <img src="/Rectangle.png" className="w-full h-full object-cover" />
+      </div>
 
-          <div className="left-0 top-[28%] absolute w-[942px] h-[1200px] ">
-          <img
-          src ="/Rectangle.png"
-          className="size-full"/>
-          </div>
+      {/* Right Overlays */}
+      <div className="absolute w-[60vw] h-[100vh] right-[-20vw] bottom-0 hidden lg:block">
+        <img src="/Rectangle.png" className="w-full h-full object-cover" />
+      </div>
 
-          <div className="-right-96 top-[28%]  absolute w-[942px] h-[1200px] ">
-          <img
-          src ="/Rectangle.png"
-          className="size-full"/>
-          </div>
+      <div className="absolute w-[60vw] h-[100vh] left-0 top-1/3 hidden lg:block">
+        <img src="/Rectangle.png" className="w-full h-full object-cover" />
+      </div>
 
-          <div className="-right-96  absolute w-[942px] h-[1200px] ">
-          <img
-          src ="/Rectangle.png"
-          className="size-full"/>
-          </div>
+      <div className="absolute w-[60vw] h-[100vh] right-[-25vw] top-1/4 hidden lg:block">
+        <img src="/Rectangle.png" className="w-full h-full object-cover" />
+      </div>
 
-          <div className="right-96 top-[55%]  absolute w-[400px] h-[400px] ">
-          <img
-          src ="/Rectangle.png"
-          className="size-full"/>
-          </div>
+      {/* Accent Elements */}
+      <div className="absolute w-[30vw] h-[30vw] right-[10vw] top-[55%] hidden xl:block">
+        <img src="/Rectangle.png" className="w-full h-full object-cover" />
+      </div>
 
-           <div className="right-96 top-[25%]  absolute w-[400px] h-[400px] ">
-          <img
-          src ="/Rectangle.png"
-          className="size-full"/>
-          </div>
-          </div>
-  )
-}
-
+      <div className="absolute w-[30vw] h-[30vw] right-[10vw] top-[25%] hidden xl:block">
+        <img src="/Rectangle.png" className="w-full h-full object-cover" />
+      </div>
+    </div>
+  );
+};
 export default Backgroundsection
