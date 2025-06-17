@@ -1,4 +1,4 @@
-import { Clock, Mail } from "lucide-react";
+
 
 const Navbar = () => {
   return (
@@ -7,8 +7,9 @@ const Navbar = () => {
       <div className="flex items-center space-x-2">
         <h1 className="text-3xl font-logo text-black drop-shadow-md font-body">Availr</h1>
         <div className="flex items-center space-x-1">
-          <Clock className="w-6 h-6" />
-          <Mail className="w-6 h-6" />
+          <img
+          src="/messenger.svg"
+          />
         </div>
       </div>
 

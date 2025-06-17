@@ -16,11 +16,11 @@ const Help = ({ title, description }: Props) => {
     >
       <h2 className="text-2xl font-bold mb-4">{title}</h2>
       <p className="text-xl mb-4">{description}</p>
-      <ul className="list-disc list-inside space-y-2 bg-white/10 p-4 rounded-lg">
-        <li>✅ No account or login needed for participants</li>
-        <li>✅ CLI-first workflow — made for developers and organizers</li>
-        <li>✅ Scales effortlessly — from 10 to 10,000 users</li>
-        <li>✅ Built with privacy in mind — no unnecessary data collection</li>
+      <ul className="list-none list-inside space-y-2 bg-white/10 p-4 rounded-lg">
+        <li>✨ No account or login needed for participants</li>
+        <li>⚙  CLI-first workflow — made for developers and organizers</li>
+        <li>📈 Scales effortlessly — from 10 to 10,000 users</li>
+        <li>🛡  Built with privacy in mind — no unnecessary data collection</li>
       </ul>
     </motion.section>
   );

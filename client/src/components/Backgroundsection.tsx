@@ -1,66 +1,57 @@
-interface BackgroundsectionProps{
-    top?:number
-  
-}
 
-const Backgroundsection = ({top}:BackgroundsectionProps) => {
+
+const Backgroundsection = () => {
   return (
-    <div className={`relative w-full top-[${top??"0"}%] `}>
-    <div className=" absolute size-[400px] ">
+    <div className="absolute size-full z-0 pointer-events-none">
+      <div className=" absolute w-[942px] h-[1200px] ">
           <img
           src ="/Rectangle.png"
           className="size-full"/>
+          
         </div>
-
-        <div className="left-96 absolute size-[400px] ">
+        <div className="bottom-0 absolute w-[942px] h-[1200px] ">
           <img
           src ="/Rectangle.png"
           className="size-full"/>
-        </div>
+          </div>
+         
 
-        <div className="right-0 absolute size-[400px] ">
+        <div className="-right-96 bottom-0 absolute w-[942px] h-[1200px] ">
           <img
           src ="/Rectangle.png"
           className="size-full"/>
-        </div>
+          </div>
 
-        <div className="right-96 absolute size-[400px] ">
+          <div className="left-0 top-[28%] absolute w-[942px] h-[1200px] ">
           <img
           src ="/Rectangle.png"
           className="size-full"/>
-        </div>
+          </div>
 
-        <div className="-left-48 top-72 absolute size-[400px] ">
+          <div className="-right-96 top-[28%]  absolute w-[942px] h-[1200px] ">
           <img
           src ="/Rectangle.png"
           className="size-full"/>
-        </div>
+          </div>
 
-        <div className="left-48 top-72  absolute size-[400px] ">
+          <div className="-right-96  absolute w-[942px] h-[1200px] ">
           <img
           src ="/Rectangle.png"
           className="size-full"/>
-        </div>
+          </div>
 
-        <div className="-right-48 top-72  absolute size-[400px] ">
+          <div className="right-96 top-[55%]  absolute w-[400px] h-[400px] ">
           <img
           src ="/Rectangle.png"
           className="size-full"/>
-        </div>
+          </div>
 
-        <div className="right-48 top-72  absolute size-[400px] ">
+           <div className="right-96 top-[25%]  absolute w-[400px] h-[400px] ">
           <img
           src ="/Rectangle.png"
           className="size-full"/>
-        </div>
-
-        <div className="right-[38%] top-72 absolute size-[400px] ">
-          <img
-          src ="/Rectangle.png"
-          className="size-full"/>
-        </div>
-        </div>
-
+          </div>
+          </div>
   )
 }
 

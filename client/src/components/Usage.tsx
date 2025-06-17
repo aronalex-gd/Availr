@@ -16,7 +16,7 @@ const Usage = ({ title, description }: Props) => {
     >
       <h2 className="text-2xl font-bold mb-4">{title}</h2>
       <p className="text-xl mb-4">{description}</p>
-      <ul className="list-disc list-inside space-y-2 bg-white/10 p-4 rounded-lg">
+      <ul className="list-none list-inside space-y-2 bg-white/10 p-4 rounded-lg">
         <li>💻 Tech Bootcamps</li>
         <li>📚 Workshops & Trainings</li>
         <li>🎤 Interviews</li>

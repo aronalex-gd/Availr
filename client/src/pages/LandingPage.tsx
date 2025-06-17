@@ -9,62 +9,14 @@ import FAQ from '../components/Faq'
 import Prefooter from '../components/Prefooter'
 import Footer from '../components/Footer'
 import Navbar from '../components/Navbar'
+import Backgroundsection from '../components/Backgroundsection'
 
 
 const LandingPage = () => {
   return (
 
     <div className="relative bg-gradient-to-b from-[#003897] to-black min-h-screen font-sans text-white overflow-x-hidden">
-      <div className="absolute size-full z-0 pointer-events-none">
-      <div className=" absolute w-[942px] h-[1200px] ">
-          <img
-          src ="/Rectangle.png"
-          className="size-full"/>
-          
-        </div>
-        <div className="bottom-0 absolute w-[942px] h-[1200px] ">
-          <img
-          src ="/Rectangle.png"
-          className="size-full"/>
-          </div>
-         
-
-        <div className="-right-96 bottom-0 absolute w-[942px] h-[1200px] ">
-          <img
-          src ="/Rectangle.png"
-          className="size-full"/>
-          </div>
-
-          <div className="left-0 top-[28%] absolute w-[942px] h-[1200px] ">
-          <img
-          src ="/Rectangle.png"
-          className="size-full"/>
-          </div>
-
-          <div className="-right-96 top-[28%]  absolute w-[942px] h-[1200px] ">
-          <img
-          src ="/Rectangle.png"
-          className="size-full"/>
-          </div>
-
-          <div className="-right-96  absolute w-[942px] h-[1200px] ">
-          <img
-          src ="/Rectangle.png"
-          className="size-full"/>
-          </div>
-
-          <div className="right-96 top-[55%]  absolute w-[400px] h-[400px] ">
-          <img
-          src ="/Rectangle.png"
-          className="size-full"/>
-          </div>
-
-           <div className="right-96 top-[25%]  absolute w-[400px] h-[400px] ">
-          <img
-          src ="/Rectangle.png"
-          className="size-full"/>
-          </div>
-          </div>
+      <Backgroundsection/>
           
        <div className="z-10">
       <Navbar/>
@@ -79,26 +31,41 @@ const LandingPage = () => {
                     scheduling is like herding cats — slow, messy, and frustrating. Availr makes it smooth,
                     smart, and stress-free — and it starts here."
                   />
+                  <section id="about">
         <Features
                     title="How Availr Helps?"
                     description="One Tool. Total Control."
                   />
+                  </section>
+
+                <section id="tutorial">
         <Working
                 title="Here’s How Availr Works?"
                 description='Visual Journey:'
                 />
+                </section>
+
+                <section id ="knowmore">
         <Help
               title="Why Teams Love Availr?"
               description="What Sets Us Apart:"
             />
+            </section>
         <Usage
               title="Built for Every Kind of Scheduling"
               description="Where Availr Shines:"
               />
               <People/>
+
+              <section id="faqs">
               <FAQ/>
+              </section>
+
               <Prefooter/>
+
+              <section id ="contact">
               <Footer/>
+              </section>
 
       </main>
     </div>

@@ -8,19 +8,19 @@ const Footer = () => {
           <p className="mb-3">
             Type-safe, modern TypeScript scaffolding for full stack web development
           </p>
-          <div className="flex space-x-4">
+          <div className="flex space-x-4 ">
             <a href="#" aria-label="GitHub">
               <img
                 src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg"
                 alt="GitHub"
-                className="h-5 w-5"
+                className="fill white invert size-8"
               />
             </a>
             <a href="#" aria-label="NPM">
               <img
                 src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/npm/npm-original-wordmark.svg"
                 alt="NPM"
-                className="h-5 w-5"
+                className="fill white invert size-8"
               />
             </a>
           </div>
