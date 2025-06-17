@@ -20,7 +20,7 @@ const LandingPage = () => {
         <Navbar />
 
         <div className="bg-gradient-to-b from-blue-600 to-black text-white font-sans">
-          <div className="bg-[url(/Rectangle.png)] bg-center bg-repeat">
+          <div className="bg-[url(/Rectangle.png)] bg-center bg-repeat bg-size-[100px]">
           <Heading />
 
           <main className="px-4 sm:px-6 md:px-10 py-12 w-full max-w-6xl mx-auto space-y-16">
