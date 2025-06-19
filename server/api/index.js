@@ -4,6 +4,13 @@ import fs from "fs";
 import path from "path";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import {
+  HTML_CONFIRMATION_FORM,
+  HTML_ERROR_MISSING_INFO,
+  HTML_ERROR_SERVER_ISSUE,
+  HTML_ERROR_SLOT_TAKEN,
+  HTML_SUCCESS_SLOT_CONFIRMED,
+} from "../../cli/constants";
 
 const app = new Hono();
 app.use("*", cors());
@@ -53,68 +60,8 @@ app.get("/confirm", (c) => {
     )
     .join("");
 
-  return c.html(`
-    <html>
-      <head>
-        <style>
-          body {
-            font-family: sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-          }
-          .container {
-            background: #fff;
-            padding: 1.5rem;
-            border-radius: 10px;
-            max-width: 400px;
-            width: 100%;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-          }
-          select, button {
-            width: 100%;
-            padding: 0.5rem;
-            margin-top: 0.5rem;
-            font-size: 1rem;
-          }
-          button {
-            background: #4caf50;
-            color: #fff;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            margin-top: 1rem;
-          }
-          button:hover {
-            background: #45a049;
-          }
-        </style>
-      </head>
-      <body>
-        <div class="container">
-          <h2>Hello ${name}, please select your available slot</h2>
-          <form action="/confirm-slot" method="POST">
-            <input type="hidden" name="token" value="${token}">
-            <label>
-              Choose a slot:
-              <select name="slot" required>
-                <option value="" disabled selected>Select a time slot</option>
-                ${slotOptions}
-              </select>
-            </label>
-            <button type="submit">Confirm</button>
-          </form>
-        </div>
-      </body>
-    </html>
-  `);
+  return c.html(HTML_CONFIRMATION_FORM(name, token, slotOptions));
 });
-
-// app.get("/confirm/:email", (c) => {
-//   const email = c.req.param("email");
-//   return c.redirect(`/confirm?email=${encodeURIComponent(email)}`);
-// });
 
 app.post("/confirm-slot", async (c) => {
   try {
@@ -138,49 +85,7 @@ app.post("/confirm-slot", async (c) => {
     }
 
     if (!email || !slot) {
-      return c.html(
-        `
-        <html>
-          <head>
-            <style>
-              body {
-                font-family: sans-serif;
-                background: #f9f9f9;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 100vh;
-                margin: 0;
-              }
-              .box {
-                background: #fff;
-                padding: 1.5rem;
-                border-radius: 6px;
-                box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-                text-align: center;
-              }
-              a {
-                display: inline-block;
-                margin-top: 1rem;
-                text-decoration: none;
-                color: #007bff;
-              }
-              a:hover {
-                text-decoration: underline;
-              }
-            </style>
-          </head>
-          <body>
-            <div class="box">
-              <h2>Error</h2>
-              <p>Missing required information. Please try again.</p>
-              <a href="/confirm?token=${encodeURIComponent(token)}">Go back</a>
-            </div>
-          </body>
-        </html>
-      `,
-        400
-      );
+      return c.html(HTML_ERROR_MISSING_INFO(token), 400);
     }
 
     const confirmationsPath = path.resolve(process.cwd(), "confirmations.json");
@@ -197,48 +102,7 @@ app.post("/confirm-slot", async (c) => {
 
     const alreadyTaken = confirmations.some((c) => c.slot === slot);
     if (alreadyTaken) {
-      return c.html(
-        `
-    <html>
-      <head>
-        <style>
-          body {
-            font-family: sans-serif;
-            background: #f9f9f9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-          }
-          .box {
-            background: #fff;
-            padding: 1.5rem;
-            border-radius: 6px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            text-align: center;
-          }
-          a {
-            display: inline-block;
-            margin-top: 1rem;
-            text-decoration: none;
-            color: #007bff;
-          }
-          a:hover {
-            text-decoration: underline;
-          }
-        </style>
-      </head>
-      <body>
-        <div class="box">
-          <h2>Error</h2>
-          <p>Slot already taken. Please try another.</p>
-          <a href="/confirm?token=${encodeURIComponent(token)}">Go back</a>
-        </div>
-      </body>
-    </html>`,
-        400
-      );
+      return c.html(HTML_ERROR_SLOT_TAKEN(token), 400);
     }
 
     confirmations.push({
@@ -251,49 +115,10 @@ app.post("/confirm-slot", async (c) => {
     fs.writeFileSync(confirmationsPath, JSON.stringify(confirmations, null, 2));
     console.log(`Confirmation saved for ${email} - ${slot}`);
 
-    return c.html(`
-      <html>
-        <head>
-          <style>
-            body {
-              font-family: sans-serif;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              height: 100vh;
-              margin: 0;
-              background: #f9f9f9;
-            }
-            .box {
-              text-align: center;
-              background: #fff;
-              padding: 1rem 1.5rem;
-              border-radius: 6px;
-              box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            }
-          </style>
-        </head>
-        <body>
-          <div class="box">
-            <h2>Thank you, ${name}!</h2>
-            <p>Your time slot (${slot}) is confirmed.</p>
-          </div>
-        </body>
-      </html>
-    `);
+    return c.html(HTML_SUCCESS_SLOT_CONFIRMED(name, slot));
   } catch (error) {
     console.error("Error processing form:", error);
-    return c.html(
-      `
-      <html>
-        <body style="font-family:sans-serif;">
-          <h2>Server Error</h2>
-          <p>Something went wrong. Please try again later.</p>
-        </body>
-      </html>
-    `,
-      500
-    );
+    return c.html(HTML_ERROR_SERVER_ISSUE, 500);
   }
 });
 
