@@ -2,13 +2,30 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import fs from "fs";
 import path from "path";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
 const app = new Hono();
 app.use("*", cors());
+dotenv.config();
+
+const secret = process.env.JWT_SECRET;
 
 app.get("/confirm", (c) => {
-  const name = c.req.query("name") || "";
-  const email = c.req.query("email") || "";
+  const token = c.req.query("token") || "";
+
+  if (!token) {
+    return c.text("Token is missing", 400);
+  }
+
+  let name = "";
+
+  try {
+    const decoded = jwt.verify(token, secret);
+    name = decoded.name;
+  } catch (err) {
+    return c.text("Invalid or expired token", 401);
+  }
 
   const confirmationsPath = path.resolve(process.cwd(), "confirmations.json");
 
@@ -77,9 +94,8 @@ app.get("/confirm", (c) => {
       <body>
         <div class="container">
           <h2>Hello ${name}, please select your available slot</h2>
-          <form action="/confirm" method="POST">
-            <input type="hidden" name="name" value="${name}">
-            <input type="hidden" name="email" value="${email}">
+          <form action="/confirm-slot" method="POST">
+            <input type="hidden" name="token" value="${token}">
             <label>
               Choose a slot:
               <select name="slot" required>
@@ -100,12 +116,26 @@ app.get("/confirm", (c) => {
 //   return c.redirect(`/confirm?email=${encodeURIComponent(email)}`);
 // });
 
-app.post("/confirm", async (c) => {
+app.post("/confirm-slot", async (c) => {
   try {
     const formData = await c.req.formData();
-    const name = formData.get("name") || "User";
-    const email = formData.get("email");
+    const token = formData.get("token");
     const slot = formData.get("slot");
+
+    if (!token) {
+      return c.text("Token is missing", 400);
+    }
+
+    let name = "";
+    let email = "";
+
+    try {
+      const decoded = jwt.verify(token, secret);
+      name = decoded.name;
+      email = decoded.email;
+    } catch (err) {
+      return c.text("Invalid or expired token", 401);
+    }
 
     if (!email || !slot) {
       return c.html(
@@ -144,9 +174,7 @@ app.post("/confirm", async (c) => {
             <div class="box">
               <h2>Error</h2>
               <p>Missing required information. Please try again.</p>
-              <a href="/confirm?name=${encodeURIComponent(
-                name
-              )}&email=${encodeURIComponent(email)}">Go back</a>
+              <a href="/confirm?token=${encodeURIComponent(token)}">Go back</a>
             </div>
           </body>
         </html>
@@ -165,6 +193,52 @@ app.post("/confirm", async (c) => {
       }
     } catch (err) {
       console.error("Error reading confirmations file:", err);
+    }
+
+    const alreadyTaken = confirmations.some((c) => c.slot === slot);
+    if (alreadyTaken) {
+      return c.html(
+        `
+    <html>
+      <head>
+        <style>
+          body {
+            font-family: sans-serif;
+            background: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+          }
+          .box {
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 6px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            text-align: center;
+          }
+          a {
+            display: inline-block;
+            margin-top: 1rem;
+            text-decoration: none;
+            color: #007bff;
+          }
+          a:hover {
+            text-decoration: underline;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="box">
+          <h2>Error</h2>
+          <p>Slot already taken. Please try another.</p>
+          <a href="/confirm?token=${encodeURIComponent(token)}">Go back</a>
+        </div>
+      </body>
+    </html>`,
+        400
+      );
     }
 
     confirmations.push({
