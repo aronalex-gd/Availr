@@ -2,7 +2,15 @@ import nodemailer from "nodemailer";
 import fs from "fs";
 import { EMAIL_TEMPLATE, EMAIL_SUBJECT } from "../constants.js";
 import dotenv from "dotenv";
+import jwt from "jsonwebtoken";
 dotenv.config();
+
+const generateToken = (name, email) => {
+  const payload = { name, email };
+  const secret = process.env.JWT_SECRET;
+  const options = { expiresIn: "1h" };
+  return jwt.sign(payload, secret, options);
+};
 
 export const sendEmails = async () => {
   try {
@@ -30,15 +38,15 @@ export const sendEmails = async () => {
       if (!email) continue;
 
       try {
+        const token = generateToken(name, email);
+
         await transporter.sendMail({
           from: process.env.AVAILR_EMAIL,
           to: email,
           subject: EMAIL_SUBJECT,
           html: EMAIL_TEMPLATE(
             name,
-            `http://localhost:3000/confirm?name=${encodeURIComponent(
-              name
-            )}&email=${encodeURIComponent(email)}`
+            `http://localhost:3000/confirm?token=${encodeURIComponent(token)}`
           ),
         });
         console.log(`✉️ Sent to ${email}`);
