@@ -24,13 +24,12 @@ import {
 import runServer from "./components/server.js";
 import checkHealth from "./components/healthCheck.js";
 
-// Register the custom font from the local folder
 const fontData = fs.readFileSync("./figlet-fonts/3d.flf", "utf8");
-figlet.parseFont("3d", fontData);  // "3d" is the font name you'll use below
+figlet.parseFont("3d", fontData);  
 
 const showBanner = () => {
   const banner = figlet.textSync("AVAILR", {
-    font: "3d",                     // must match the name in parseFont
+    font: "3d",                     
     horizontalLayout: "full",
     verticalLayout: "default",
   });
