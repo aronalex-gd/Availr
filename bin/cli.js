@@ -2,14 +2,13 @@
 
 import inquirer from "inquirer";
 import chalk from "chalk";
-import figlet from "figlet";
-import fs from "fs";
-
+import boxen from "boxen";
+import chalkAnimation from "chalk-animation";
 
 import { importCSV } from "../cli/commands/importCsv.js";
 import { previewCSV } from "../cli/commands/previewCSV.js";
 import { sendEmails } from "../cli/commands/sendEmails.js";
-import { scheduleEmail } from '../cli/commands/scheduleEmail.js';
+import { scheduleEmail } from "../cli/commands/scheduleEmail.js";
 import { sendConfirmations } from "../cli/commands/sendConfirmations.js";
 import { checkData } from "../cli/commands/checkData.js";
 import { viewStats } from "../cli/commands/viewStats.js";
@@ -22,23 +21,37 @@ import {
   displayCommands,
 } from "./components/utils.js";
 import runServer from "./components/server.js";
-import checkHealth from "./components/healthCheck.js"; 
+import checkHealth from "./components/healthCheck.js";
+import { renderTitle } from "./components/utils.js";
 
 const showBanner = () => {
-  const banner = figlet.textSync("AVAILR", {
-    font: "Alligator2",                     
-    horizontalLayout: "full",
-    verticalLayout: "default",
-  });
-  console.log(chalk.cyan(banner));
-};
+  renderTitle();
 
+  console.log(
+    boxen(chalk.white.bold("Professional Email Management Tool"), {
+      padding: 1,
+      margin: { top: 0, bottom: 1 },
+      borderStyle: "single",
+      borderColor: "blue",
+      dimBorder: true,
+    })
+  );
+};
 
 const showServerStatus = (isRunning) => {
   const statusText = isRunning
-    ? chalk.green("Server: online")
-    : chalk.red("Server: offline");
-  console.log(statusText + "\n");
+    ? chalk.green("● Server Status: Online")
+    : chalk.red("○ Server Status: Offline");
+
+  console.log(
+    boxen(statusText, {
+      padding: { left: 2, right: 2, top: 0, bottom: 0 },
+      borderStyle: "single",
+      borderColor: isRunning ? "green" : "red",
+      dimBorder: true,
+    })
+  );
+  console.log();
 };
 
 const processCommandArgs = async () => {
@@ -93,27 +106,34 @@ const main = async () => {
     }
     console.clear();
 
-    showBanner();  // Show styled banner
-    console.log(chalk.white("Welcome to Availr!\n"));
+    showBanner();
+    const welcomeMsg = chalkAnimation.pulse("Initialising!\n");
+
+    await new Promise((resolve) =>
+      setTimeout(() => {
+        welcomeMsg.stop();
+        resolve();
+      }, 2000)
+    );
 
     let running = true;
     while (running) {
       console.clear();
 
-      spinner.start("Checking server status...");
+      spinner.start("Initializing server status check...");
       const serverRunning = await isServerRunning();
       spinner.stop();
 
       await new Promise((resolve) => setTimeout(resolve, 300));
 
-      showBanner();          // Show banner every iteration for consistency
+      showBanner();
       showServerStatus(serverRunning);
 
       const { action } = await inquirer.prompt([
         {
           type: "list",
           name: "action",
-          message: chalk.white("What would you like to do?"),
+          message: chalk.white.bold("Please select an operation:"),
           choices: [
             { name: "Import CSV", value: "Import CSV" },
             { name: "Preview CSV", value: "Preview CSV" },
@@ -138,7 +158,7 @@ const main = async () => {
 
       switch (action.split(" ")[0] === "Start" ? "Start Server" : action) {
         case "Import CSV":
-          spinner.start("Preparing to import CSV...");
+          spinner.start("Initializing CSV import module...");
           await new Promise((resolve) => setTimeout(resolve, 500));
           spinner.stop();
           try {
@@ -152,7 +172,7 @@ const main = async () => {
           }
           break;
         case "Send Emails":
-          spinner.start("Preparing email service...");
+          spinner.start("Initializing email service...");
           await new Promise((resolve) => setTimeout(resolve, 500));
           spinner.stop();
           await sendEmails();
@@ -160,45 +180,54 @@ const main = async () => {
 
         case "Preview CSV":
           try {
-            await previewCSV("test.csv");  
+            await previewCSV("test.csv");
           } catch (err) {
             console.log(chalk.red("❌ Error previewing CSV:"), err.message);
           }
           break;
-        
+
         case "Schedule Emails":
+          spinner.start("Initializing email scheduler...");
+          await new Promise((resolve) => setTimeout(resolve, 500));
+          spinner.stop();
           await scheduleEmail();
           break;
 
         case "Check Data":
-          spinner.start("Loading Data...");
+          spinner.start("Initializing data analysis...");
           await new Promise((resolve) => setTimeout(resolve, 500));
           spinner.stop();
           await checkData();
           break;
         case "Send Confirmations":
-          spinner.start("Sending confirmations...");
+          spinner.start("Initializing confirmation service...");
           await new Promise((resolve) => setTimeout(resolve, 500));
           spinner.stop();
           await sendConfirmations();
           break;
         case "View Stats":
           try {
-           spinner.start("Loading statistics...");
-           await new Promise((r) => setTimeout(r, 500));
-           spinner.stop();
+            spinner.start("Initializing statistics module...");
+            await new Promise((r) => setTimeout(r, 500));
+            spinner.stop();
 
-          await viewStats("test.csv");
-        } catch (err) {
-           console.error(chalk.red(`❌ Failed to view stats: ${err.message}`));
-        }
-        break;
+            await viewStats("test.csv");
+          } catch (err) {
+            console.error(chalk.red(`❌ Failed to view stats: ${err.message}`));
+          }
+          break;
 
         case "Start Server":
+          spinner.start("Initializing server module...");
+          await new Promise((resolve) => setTimeout(resolve, 500));
+          spinner.stop();
           await runServer();
           await new Promise((resolve) => setTimeout(resolve, 500));
           break;
         case "Health Check":
+          spinner.start("Initializing health check module...");
+          await new Promise((resolve) => setTimeout(resolve, 500));
+          spinner.stop();
           await checkHealth();
           break;
         case "Help":
@@ -240,14 +269,20 @@ const main = async () => {
 };
 
 process.on("uncaughtException", (err) => {
-  console.error(chalk.red(`\nUnexpected error: ${err.message}`));
-  console.log(chalk.yellow("CLI will restart shortly..."));
+  console.error(
+    boxen(chalk.red(`\n❌ System Error: ${err.message}`), {
+      padding: 1,
+      borderStyle: "single",
+      borderColor: "red",
+    })
+  );
+  console.log(chalk.yellow("System will restart momentarily..."));
 
   const restartTime = err.code === "ENOENT" ? 5 : 3;
   setTimeout(() => main(), restartTime * 1000);
 });
 
 main().catch((error) => {
-  console.error(chalk.red(`\nFatal error: ${error.message}`));
+  console.error(chalk.red(`\nCritical System Error: ${error.message}`));
   process.exit(1);
 });
