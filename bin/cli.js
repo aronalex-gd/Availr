@@ -2,6 +2,10 @@
 
 import inquirer from "inquirer";
 import chalk from "chalk";
+import figlet from "figlet";
+import fs from "fs";
+
+
 import { importCSV } from "../cli/commands/importCsv.js";
 import { previewCSV } from "../cli/commands/previewCSV.js";
 import { sendEmails } from "../cli/commands/sendEmails.js";
@@ -19,6 +23,27 @@ import {
 } from "./components/utils.js";
 import runServer from "./components/server.js";
 import checkHealth from "./components/healthCheck.js";
+
+// Register the custom font from the local folder
+const fontData = fs.readFileSync("./figlet-fonts/3d.flf", "utf8");
+figlet.parseFont("3d", fontData);  // "3d" is the font name you'll use below
+
+const showBanner = () => {
+  const banner = figlet.textSync("AVAILR", {
+    font: "3d",                     // must match the name in parseFont
+    horizontalLayout: "full",
+    verticalLayout: "default",
+  });
+  console.log(chalk.cyan(banner));
+};
+
+
+const showServerStatus = (isRunning) => {
+  const statusText = isRunning
+    ? chalk.green("Server: online")
+    : chalk.red("Server: offline");
+  console.log(statusText + "\n");
+};
 
 const processCommandArgs = async () => {
   const args = process.argv.slice(2);
@@ -71,25 +96,28 @@ const main = async () => {
       process.exit(0);
     }
     console.clear();
-    console.log(chalk.bold.cyan("\nAVAILR CLI\n"));
+
+    showBanner();  // Show styled banner
     console.log(chalk.white("Welcome to Availr!\n"));
+
     let running = true;
     while (running) {
       console.clear();
+
       spinner.start("Checking server status...");
       const serverRunning = await isServerRunning();
       spinner.stop();
+
       await new Promise((resolve) => setTimeout(resolve, 300));
-      const serverStatus = serverRunning
-        ? chalk.green("online")
-        : chalk.red("offline");
-      console.log(chalk.bold.cyan("\nAVAILR CLI"));
-      console.log(`Server: ${serverStatus}\n`);
+
+      showBanner();          // Show banner every iteration for consistency
+      showServerStatus(serverRunning);
+
       const { action } = await inquirer.prompt([
         {
           type: "list",
           name: "action",
-          message: "What would you like to do?",
+          message: chalk.white("What would you like to do?"),
           choices: [
             { name: "Import CSV", value: "Import CSV" },
             { name: "Preview CSV", value: "Preview CSV" },
@@ -111,6 +139,7 @@ const main = async () => {
           ],
         },
       ]);
+
       switch (action.split(" ")[0] === "Start" ? "Start Server" : action) {
         case "Import CSV":
           spinner.start("Preparing to import CSV...");

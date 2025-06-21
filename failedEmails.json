@@ -1,0 +1,17 @@
+[
+  {
+    "Name": "Alvin Dennis",
+    "Email": "alvin@example.com",
+    "error": "Missing credentials for \"PLAIN\""
+  },
+  {
+    "Name": "Jane Smith",
+    "Email": "jane@example.com",
+    "error": "Missing credentials for \"PLAIN\""
+  },
+  {
+    "Name": "John Doe",
+    "Email": "john@example.com",
+    "error": "Missing credentials for \"PLAIN\""
+  }
+]
