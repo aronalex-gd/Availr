@@ -22,14 +22,11 @@ import {
   displayCommands,
 } from "./components/utils.js";
 import runServer from "./components/server.js";
-import checkHealth from "./components/healthCheck.js";
-
-const fontData = fs.readFileSync("./figlet-fonts/3d.flf", "utf8");
-figlet.parseFont("3d", fontData);  
+import checkHealth from "./components/healthCheck.js"; 
 
 const showBanner = () => {
   const banner = figlet.textSync("AVAILR", {
-    font: "3d",                     
+    font: "Alligator2",                     
     horizontalLayout: "full",
     verticalLayout: "default",
   });
